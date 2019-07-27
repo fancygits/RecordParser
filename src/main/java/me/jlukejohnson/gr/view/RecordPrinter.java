@@ -29,6 +29,12 @@ public class RecordPrinter {
 			System.out.println(person.getDetails());
 		}
 	}
+	
+	
+	public String getJSONRecords(String sortMethod) {
+		this.sortData(sortMethod);
+		return "";
+	}
 
 	/**
 	 * Sorts the data before export
