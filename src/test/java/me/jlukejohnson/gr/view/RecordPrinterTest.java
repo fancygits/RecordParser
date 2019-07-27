@@ -87,7 +87,7 @@ class RecordPrinterTest {
 				+ "Costley        Dukie          male      Green       7/13/1947 \r\n"
 				+ "Kindall        Rici           female    Aquamarine  1/14/2004 \r\n", outContent.toString());
 	}
-	
+
 	/**
 	 * Test to confirm that printRecords(lastname) sorts and prints correctly
 	 */
@@ -95,11 +95,11 @@ class RecordPrinterTest {
 	void testPrintRecordsSortsByLastName() {
 		RecordPrinter printer = new RecordPrinter(this.people);
 		printer.printRecords("lastname");
-		assertEquals("Last Name      First Name     Gender    Top Color   Birthdate\r\n" + 
-				"-------------------------------------------------------------\r\n" + 
-				"Kindall        Rici           female    Aquamarine  1/14/2004 \r\n" + 
-				"Costley        Dukie          male      Green       7/13/1947 \r\n" + 
-				"Bettley        Abbe           female    Purple      1/1/1930  \r\n", outContent.toString());
+		assertEquals("Last Name      First Name     Gender    Top Color   Birthdate\r\n"
+				+ "-------------------------------------------------------------\r\n"
+				+ "Kindall        Rici           female    Aquamarine  1/14/2004 \r\n"
+				+ "Costley        Dukie          male      Green       7/13/1947 \r\n"
+				+ "Bettley        Abbe           female    Purple      1/1/1930  \r\n", outContent.toString());
 	}
 
 }
