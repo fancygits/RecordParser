@@ -62,6 +62,32 @@ public class Person {
 				this.getFormattedDate(this.dateOfBirth));
 	}
 	
+	/* GETTERS */
+	
+	/**
+	 * Gets the gender
+	 * @return	gender
+	 */
+	public String getGender() {
+		return this.gender;
+	}
+	
+	/**
+	 * Gets the last name
+	 * @return	lastName
+	 */
+	public String getLastName() {
+		return this.lastName;
+	}
+	
+	/**
+	 * Gets the date of birth
+	 * @return	dateOfBirth
+	 */
+	public Date getDateOfBirth() {
+		return this.dateOfBirth;
+	}
+	
 	/* PRIVATE METHODS */
 	
 	/**
