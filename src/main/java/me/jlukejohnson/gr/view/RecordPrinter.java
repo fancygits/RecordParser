@@ -3,6 +3,8 @@ package me.jlukejohnson.gr.view;
 import java.util.Comparator;
 import java.util.List;
 
+import com.google.gson.Gson;
+
 import me.jlukejohnson.gr.model.Person;
 
 /**
@@ -30,10 +32,17 @@ public class RecordPrinter {
 		}
 	}
 	
-	
+	/**
+	 * Constructs a JSON of sorted records
+	 * 
+	 * @param sortMethod	The method to sort by
+	 * @return				A String in JSON format
+	 */
 	public String getJSONRecords(String sortMethod) {
 		this.sortData(sortMethod);
-		return "";
+		return new Gson().toJson(
+				new StandardResponse(StatusResponse.SUCCESS, new Gson()
+						.toJsonTree(this.people)));
 	}
 
 	/**

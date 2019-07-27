@@ -7,12 +7,9 @@ import java.io.FileNotFoundException;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.ParameterException;
-import com.google.gson.Gson;
 
 import me.jlukejohnson.gr.model.RecordParser;
 import me.jlukejohnson.gr.view.RecordPrinter;
-import me.jlukejohnson.gr.view.StandardResponse;
-import me.jlukejohnson.gr.view.StatusResponse;
 
 /**
  * The main application for RecordParser
@@ -71,15 +68,23 @@ public class RecordParserDriver {
 		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 		System.out.println("+++++++      Starting server on port 4567      +++++++");
 		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+		
 		get("/", (req, res) -> renderHelpPage());
+		
 		get("records/gender", (req, res) -> {
 			res.type("application/json");
-			return new Gson().toJson(
-					new StandardResponse(StatusResponse.SUCCESS, new Gson()
-							.toJsonTree(parser.getPeople())));
+			return printer.getJSONRecords("gender");
 		});
 		
-
+		get("records/birthdate", (req, res) -> {
+			res.type("application/json");
+			return printer.getJSONRecords("birthdate");
+		});
+		
+		get("records/name", (req, res) -> {
+			res.type("application/json");
+			return printer.getJSONRecords("lastname");
+		});
 	}
 	
 	
