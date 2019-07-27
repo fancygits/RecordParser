@@ -23,7 +23,7 @@ public class RecordPrinter {
 	 */
 	public void printRecords(String sortMethod) {
 		this.sortData(sortMethod);
-		System.out.println("\nLast Name      First Name     Gender    Top Color   Birthdate");
+		System.out.println("Last Name      First Name     Gender    Top Color   Birthdate");
 		System.out.println("-------------------------------------------------------------");
 		for (Person person : this.people) {
 			System.out.println(person.getDetails());
