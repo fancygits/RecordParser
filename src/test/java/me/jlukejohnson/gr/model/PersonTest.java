@@ -97,6 +97,29 @@ class PersonTest {
 			new Person("Rider", "Ghost", "male", "red", "-666");
 		});
 	}
+	
+	/**
+	 * Test to confirm that a delimited string creates a Person
+	 */
+	@Test
+	void testPersonConstructorWithADelimitedString() {
+		Person tom = new Person("Cruise | Tom | Male | Green | 1962-07-03");
+		assertEquals("Cruise         Tom            male      Green       7/3/1962  ", tom.getDetails());
+		Person dukie = new Person("Costley, Dukie, Male, Green, 1947-07-13");
+		assertEquals("Costley        Dukie          male      Green       7/13/1947 ", dukie.getDetails());
+		Person rici = new Person("Kindall Rici Female Aquamarine 2004-01-14");
+		assertEquals("Kindall        Rici           female    Aquamarine  1/14/2004 ", rici.getDetails());
+	}
+	
+	/**
+	 * Test to confirm that a string of bad data will not create a Person
+	 */
+	@Test
+	void testPersonConstructorWithBadStringShouldThrowException() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			new Person("iera;ids 38 akero9z3u 4akjdfa348a ekadrq8w34lkasdf h3aiuher ca38 ;ahf ih34ioah dfap34a;kdfapw834 rsi");
+		});
+	}
 
 	/**
 	 * Test method for

@@ -26,26 +26,13 @@ public class Person {
 	 * @param dateOfBirth	Person's date of birth
 	 */
 	public Person(String lastName, String firstName, String gender, String favoriteColor, String dateOfBirth) {
-		String[] requiredFields = {lastName, firstName, gender, favoriteColor, dateOfBirth};
-		for (String item: requiredFields) {
-			if (item == null || "".equals(item)) {
-				throw new IllegalArgumentException(item + " is a required parameter.");
-			}
-		}
-		this.dateOfBirth = this.parseDateString(dateOfBirth);
-		if (this.dateOfBirth == null) {
-			throw new IllegalArgumentException("That isn't a valid date format.");
-		}
+		String[] params = {lastName, firstName, gender, favoriteColor, dateOfBirth};
+		this.checkParams(params);
 		this.lastName = lastName;
 		this.firstName = firstName;
-		if (gender.toLowerCase().startsWith("m")) {
-			this.gender = "male";
-		} else if (gender.toLowerCase().startsWith("f")) {
-			this.gender = "female";
-		} else {
-			this.gender = "other";
-		}
+		this.gender = this.getFilteredGender(gender);
 		this.favoriteColor = favoriteColor;
+		this.dateOfBirth = this.parseDateString(dateOfBirth);
 	}
 	
 	/**
@@ -62,22 +49,12 @@ public class Person {
 			splitter = " +";
 		}
 		String[] details = personData.split(splitter);
-		if (details.length != 5) {
-			throw new IllegalArgumentException("That line of data cannot create a new Person");
-		}
-		for (String detail: details) {
-			if (detail == null || "".equals(detail)) {
-				throw new IllegalArgumentException("Parameters must not be blank");
-			}
-		}
+		this.checkParams(details);
 		this.lastName = details[0].trim();
 		this.firstName = details[1].trim();
-		this.gender = details[2].trim();
+		this.gender = this.getFilteredGender(details[2].trim());
 		this.favoriteColor = details[3].trim();
 		this.dateOfBirth = this.parseDateString(details[4].trim());
-		if (this.dateOfBirth == null) {
-			throw new IllegalArgumentException("That isn't a valid date format.");
-		}
 	}
 
 	/**
@@ -144,5 +121,42 @@ public class Person {
 	private String getFormattedDate(Date date) {
 		SimpleDateFormat df = new SimpleDateFormat("M/d/yyyy");
 		return df.format(date);
+	}
+	
+	/**
+	 * Checks the parameters needed to construct a person
+	 * @param params	A String[] of exactly 5 parameters
+	 * 					lastName, firstName, gender, favoriteColor, dateOfBirth
+	 */
+	private void checkParams(String[] params) {
+		if (params.length != 5) {
+			throw new IllegalArgumentException("ERROR: That line of data cannot create a new Person");
+		}
+		for (String item: params) {
+			if (item == null || "".equals(item)) {
+				throw new IllegalArgumentException("ERROR: Missing required parameter.");
+			}
+		}
+		Date birthdate =  this.parseDateString(params[4]);
+		if (birthdate == null) {
+			throw new IllegalArgumentException("That isn't a valid date format.");
+		}
+	}
+	
+	/**
+	 * Filters given gender into male, female, or other
+	 * @param gender	A gender
+	 * @return			male, female, or other
+	 */
+	private String getFilteredGender(String gender) {
+		String filtered = "";
+		if (gender.toLowerCase().startsWith("m")) {
+			filtered = "male";
+		} else if (gender.toLowerCase().startsWith("f")) {
+			filtered = "female";
+		} else {
+			filtered = "other";
+		}
+		return filtered;
 	}
 }
