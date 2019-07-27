@@ -47,6 +47,38 @@ public class Person {
 		}
 		this.favoriteColor = favoriteColor;
 	}
+	
+	/**
+	 * Constructs a new Person from a delimited string of data
+	 * @param personData	A string delimited with commas, pipes, or spaces
+	 */
+	public Person(String personData) {
+		String splitter = "";
+		if (personData.contains("|")) {
+			splitter = "\\|";
+		} else if (personData.contains(",")) {
+			splitter = ",";
+		} else {
+			splitter = " +";
+		}
+		String[] details = personData.split(splitter);
+		if (details.length != 5) {
+			throw new IllegalArgumentException("That line of data cannot create a new Person");
+		}
+		for (String detail: details) {
+			if (detail == null || "".equals(detail)) {
+				throw new IllegalArgumentException("Parameters must not be blank");
+			}
+		}
+		this.lastName = details[0].trim();
+		this.firstName = details[1].trim();
+		this.gender = details[2].trim();
+		this.favoriteColor = details[3].trim();
+		this.dateOfBirth = this.parseDateString(details[4].trim());
+		if (this.dateOfBirth == null) {
+			throw new IllegalArgumentException("That isn't a valid date format.");
+		}
+	}
 
 	/**
 	 * Gets the details of the person
