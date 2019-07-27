@@ -21,12 +21,11 @@ public class CommandLineArgs {
 	@Parameter(names = { "--server", "-S"}, description = "Starts the RESTful api server")
 	private boolean server = false;
 	
-	@Parameter(description = "Files to import")
-	private List<String> files = new ArrayList<>();
-	
 	@Parameter(names = "--help", help = true, description = "Help/Usage menu")
     private boolean help;
 	
+	@Parameter(description = "Files to import")
+	private List<String> files = new ArrayList<>();
 	
 	public String getSortMethod() {
 		return this.sortMethod;

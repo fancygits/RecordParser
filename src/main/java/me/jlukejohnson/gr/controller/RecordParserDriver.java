@@ -53,7 +53,15 @@ public class RecordParserDriver {
 			return;
 		}
 		try {
-			System.out.printf("You ran the jar with arguments: %s, %s\n", commandLineArgs.getSortMethod(), commandLineArgs.getSingleRecord());
+			System.out.printf("You ran the jar with arguments: %s, %s, %s, %s\n", 
+					commandLineArgs.getSortMethod(), 
+					commandLineArgs.getSingleRecord(),
+					commandLineArgs.isServer(),
+					commandLineArgs.isHelp());
+			System.out.print("Files: ");
+			for (String file: commandLineArgs.getFiles()) {
+				System.out.print(file);
+			}
 			run();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

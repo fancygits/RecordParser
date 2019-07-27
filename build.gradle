@@ -7,8 +7,24 @@
  */
 
 plugins {
+	id 'java'
     // Apply the java-library plugin to add support for Java Library
     id 'java-library'
+    id 'eclipse'
+}
+
+version = '1.0'
+
+//create a single Jar with all dependencies
+task fatJar(type: Jar) {
+	manifest {
+        attributes 'Implementation-Title': 'Record Parser',  
+        	'Implementation-Version': version,
+        	'Main-Class': 'me.jlukejohnson.gr.controller.RecordParserDriver'
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
 }
 
 repositories {
@@ -22,8 +38,8 @@ dependencies {
     api 'org.apache.commons:commons-math3:3.6.1'
 
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.
-    implementation 'com.google.guava:guava:27.1-jre'
-    
+    implementation 'com.google.guava:guava:27.1-jre' 
+	
 	// https://mvnrepository.com/artifact/com.beust/jcommander
 	compile group: 'com.beust', name: 'jcommander', version: '1.72'
     
