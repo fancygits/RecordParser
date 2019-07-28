@@ -11,7 +11,6 @@ import com.beust.jcommander.JCommander;
 import com.beust.jcommander.ParameterException;
 import com.google.gson.Gson;
 
-import me.jlukejohnson.gr.model.Person;
 import me.jlukejohnson.gr.model.RecordParser;
 import me.jlukejohnson.gr.view.RecordPrinter;
 import me.jlukejohnson.gr.view.StandardResponse;
