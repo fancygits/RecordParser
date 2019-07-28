@@ -2,6 +2,7 @@ package me.jlukejohnson.gr.controller;
 
 import static spark.Spark.get;
 import static spark.Spark.post;
+import static spark.Spark.after;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -74,7 +75,7 @@ public class RecordParserDriver {
 	 */
 	public static void startServer() {
 		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-		System.out.println("+++++++      Starting server on port 4567      +++++++");
+		System.out.println("+ Starting server on port 4567. Ctrl+C to terminate. +");
 		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 		
 		get("/", (req, res) -> renderHelpPage());
@@ -102,6 +103,10 @@ public class RecordParserDriver {
 				return new Gson().toJson(new StandardResponse(StatusResponse.ERROR, "There was a problem with that record"));
 			}
 		});
+		
+		get("*", (req, res) -> {
+			return renderHelpPage();
+		});
 	}
 	
 	/**
@@ -115,7 +120,7 @@ public class RecordParserDriver {
 				+   "<body>"
 				+     "<h1>Welcome to the Record Parser API</h1>"
 				+ 	  "<h2>Getting Records</h2>"
-				+ 	  "<p>After importing records, you can get sorted records using the following "
+				+ 	  "<p>After importing records, you can GET sorted records using the following "
 				+ 	  "<strong>API endpoints: </strong></p>"
 				+ 	  "<ul>"
 				+ 	    "<li>/records/gender &mdash; Records sorted by gender, then last name, ascending</li>"
@@ -124,12 +129,12 @@ public class RecordParserDriver {
 				+ 	  "</ul>"
 				+ 	  "<p><hr></p>"
 				+     "<h2>Posting Records</h2>"
-				+ 	  "<p>You can post a single delimited record to /records.</p>"
+				+ 	  "<p>You can POST a single delimited record to /records.</p>"
 				+ 	  "<strong>Examples: </strong>" 
 				+ 	  "<ul>"
-				+ 	    "<li>/records/\"Costley, Dukie, Male, Green, 1947-07-13\"</li>"
-				+ 		"<li>/records/\"Bettley | Abbe | Female | Purple | 1930-01-01\"</li>" 
-				+ 		"<li>/records/\"Kindall Rici Female Aquamarine 2004-01-14\"</li>" 
+				+ 	    "<li>Costley, Dukie, Male, Green, 1947-07-13</li>"
+				+ 		"<li>Bettley | Abbe | Female | Purple | 1930-01-01</li>" 
+				+ 		"<li>Kindall Rici Female Aquamarine 2004-01-14</li>" 
 				+	  "</ul>"
 				+   "</body>"
 				+ "</html>";

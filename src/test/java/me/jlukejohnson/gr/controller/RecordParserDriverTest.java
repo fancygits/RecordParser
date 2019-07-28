@@ -1,7 +1,8 @@
 package me.jlukejohnson.gr.controller;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import spark.Spark;
 
 /**
  * 
@@ -9,13 +10,6 @@ import org.junit.jupiter.api.Test;
  * @version 2019.07.27
  */
 class RecordParserDriverTest {
-
-	/**
-	 * @throws java.lang.Exception
-	 */
-	@BeforeEach
-	void setUp() throws Exception {
-	}
 
 	/**
 	 * Test method for
@@ -34,6 +28,7 @@ class RecordParserDriverTest {
 	@Test
 	void testStartServer() {
 		RecordParserDriver.main(new String[] { "--server" });
+		Spark.stop();
 	}
 
 }

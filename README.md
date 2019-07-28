@@ -1,35 +1,59 @@
 # RecordParser
 A command line app that takes as input a file with a set of records in one of three formats described below, and outputs (to the screen) the set of records sorted in one of three ways.
 
+----
+
 ## Command-Line Options
 
+\* *One or more filenames with records to import*
 
+`java -jar RecordParser.jar records.txt people.csv`
+
+--record <RECORD> *- A single delimited record to import*
+
+`java -jar RecordParser.jar --record "Macy, William H, male, blue, 1950-03-13"`
+
+--sort <METHOD> *- The method to sort records by (see below for options)*
+
+`java -jar RecordParser.jar --sort gender "records.txt" "people.csv"`
+
+--server *- Starts a web server on port 4567 to GET and POST records* (**NOTE**: *If server flag isn't provided, records output to standard out*)
+
+`java -jar RecordParser.jar --server piped-records.txt`
+
+--help *- Displays the options*
+
+`java -jar RecordParser.jar --help`
+
+----
 
 ## Input Record formats
-A record consists of the following 5 fields: last name, first name, gender, date of birth and favorite color. The input is 3 files, each containing records stored in a different format. You may generate these files yourself, and you can make certain assumptions if it makes solving your problem easier.
+A record consists of the following 5 fields: *last name, first name, gender, favorite color, and date of birth*.
 
-- The pipe-delimited file lists each record as follows: 
+The pipe-delimited file lists each record as follows: 
 
 `LastName | FirstName | Gender | FavoriteColor | DateOfBirth`
 
-- The comma-delimited file looks like this: 
+The comma-delimited file looks like this: 
 
 `LastName, FirstName, Gender, FavoriteColor, DateOfBirth`
 
--	The space-delimited file looks like this: 
+The space-delimited file looks like this: 
 
 `LastName FirstName Gender FavoriteColor DateOfBirth`
 
+
 ## Sort Options
 
--	"gender" â€“ sorted by gender (females before males) then by last name ascending.
+-	"gender" - sorted by gender (females before males) then by last name ascending.
 
--	"birthdate" â€“ (DEFAULT) sorted by birth date, ascending.
+-	"birthdate" - (DEFAULT) sorted by birth date, ascending.
 
--	"lastname" â€“ sorted by last name, descending.
+-	"lastname" - sorted by last name, descending.
 
-Display dates in the format M/D/YYYY.
+Dates display in the format M/D/YYYY.
 
+----
 
 ## Assumptions
 - DateOfBirth is formatted either as "M/d/y", "y-M-d", "y.M.d".
