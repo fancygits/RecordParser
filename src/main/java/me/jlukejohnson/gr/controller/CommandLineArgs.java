@@ -18,6 +18,9 @@ public class CommandLineArgs {
 	@Parameter(names = { "--record", "-r" }, description = "A single delimited record to import")
 	private String singleRecord;
 	
+	@Parameter(names = { "--output", "-o" }, description = "A desired filename to output records to")
+	private String outputFilename;
+	
 	@Parameter(names = { "--server", "-S"}, description = "Starts the RESTful api server")
 	private boolean server = false;
 	
@@ -33,6 +36,10 @@ public class CommandLineArgs {
 	
 	public String getSingleRecord() {
 		return this.singleRecord;
+	}
+	
+	public String getOutputFilename() {
+		return this.outputFilename;
 	}
 	
 	public boolean isServer() {

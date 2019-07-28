@@ -19,6 +19,10 @@ A command line app that takes as input a file with a set of records in one of th
 
 `java -jar RecordParser.jar --sort gender "records.txt" "people.csv"`
 
+--output <FILENAME> *- A desired filename to output records to*
+
+`java -jar RecordParser.jar input.txt records.txt --sort birthdate --output combined.txt`
+
 --server *- Starts a web server on port 4567 to GET and POST records* (**NOTE**: *If server flag isn't provided, records output to standard out*)
 
 `java -jar RecordParser.jar --server piped-records.txt`
