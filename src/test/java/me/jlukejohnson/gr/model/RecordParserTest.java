@@ -119,4 +119,34 @@ class RecordParserTest {
 		Person person = new Person("Cruise | Tom | Male | Green | 1962-07-03");
 		assertTrue(parser.importPerson(person));
 	}
+	
+	/**
+	 * Test to confirm that exportRecords correctly saves records to a file
+	 */
+	@Test
+	void testExportRecordsShouldExportAFile() {
+		RecordParser parser = new RecordParser();
+		File temp;
+		try {
+			temp = File.createTempFile("temp", "tmp");
+			FileWriter writer = new FileWriter(temp);
+			writer.write("Costley, Dukie, Male, Green, 1947-07-13\n"
+					+ "Bettley | Abbe | Female | Purple | 1930-01-01\n"
+					+ "Kindall Rici Female Aquamarine 2004-01-14\n");
+			writer.flush();
+			writer.close();
+			temp.deleteOnExit();
+			assertTrue(parser.importRecords(temp));
+			assertEquals(3, parser.getPeople().size());
+			assertEquals("Costley        Dukie          male      Green       7/13/1947 ", parser.getPeople().get(0).getDetails());
+			File file = new File("test.txt");
+			String fileName = parser.exportRecords("test.txt");
+			assertEquals("test.txt", fileName);
+			assertTrue(file.delete());
+		} catch (FileNotFoundException fnfe) {
+			fnfe.printStackTrace();
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
+	}
 }

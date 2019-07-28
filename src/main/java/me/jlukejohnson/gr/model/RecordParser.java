@@ -2,6 +2,7 @@ package me.jlukejohnson.gr.model;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -75,6 +76,26 @@ public class RecordParser {
 	public boolean importPerson(Person person) {
 		this.people.add(person);
 		return true;
+	}
+	
+	/**
+	 * Exports the current people records to a file.
+	 * @param fileName	The name of the desired file
+	 * @return			The file name or ERROR
+	 */
+	public String exportRecords(String fileName) {
+		File sourceFile = new File(fileName);
+		try {
+			PrintWriter outFile = new PrintWriter(sourceFile);
+			for (Person person: this.people) {
+				outFile.write(person.getDetails() + System.getProperty("line.separator"));
+			}
+			outFile.close();
+			return fileName;
+		} catch (FileNotFoundException fnfe) {
+			System.err.println("There was a problem with the file");
+			return "ERROR";
+		}
 	}
 
 	/**
