@@ -1,6 +1,8 @@
 # RecordParser
 A command line app that takes as input a file with a set of records in one of three formats described below, and outputs (to the screen) the set of records sorted in one of three ways.
 
+[RecordParser JAR hosted on Google Drive](https://drive.google.com/file/d/1TnIIYTOtV1RO7xXxDb15z6jfm-ildqaq/view?usp=sharing "Download RecordParser JAR")
+
 ----
 
 ## Command-Line Options
