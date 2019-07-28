@@ -101,5 +101,13 @@ class RecordPrinterTest {
 				+ "Costley        Dukie          male      Green       7/13/1947 \r\n"
 				+ "Bettley        Abbe           female    Purple      1/1/1930  \r\n", outContent.toString());
 	}
+	
+	
+	@Test
+	void testRecordPrinterGetJSONRecordsShouldReturnJSON() {
+		RecordPrinter printer = new RecordPrinter(this.people);
+		String json = printer.getJSONRecords("lastName");
+		assertEquals("{\"status\":\"SUCCESS\",\"data\":[{\"lastName\":\"Kindall\",\"firstName\":\"Rici\",\"gender\":\"female\",\"favoriteColor\":\"Aquamarine\",\"dateOfBirth\":\"Jan 14, 2004, 12:00:00 AM\"},{\"lastName\":\"Costley\",\"firstName\":\"Dukie\",\"gender\":\"male\",\"favoriteColor\":\"Green\",\"dateOfBirth\":\"Jul 13, 1947, 12:00:00 AM\"},{\"lastName\":\"Bettley\",\"firstName\":\"Abbe\",\"gender\":\"female\",\"favoriteColor\":\"Purple\",\"dateOfBirth\":\"Jan 1, 1930, 12:00:00 AM\"}]}", json);
+	}
 
 }

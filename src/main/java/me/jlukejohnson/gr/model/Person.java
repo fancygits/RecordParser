@@ -15,7 +15,7 @@ public class Person {
 	private String gender;
 	private String favoriteColor;
 	private Date dateOfBirth;
-	private String[] dateFormats = {"M/d/y", "y-M-d", "y.M.d"};
+	private transient String[] dateFormats = {"M/d/y", "y-M-d", "y.M.d"};
 	
 	/**
 	 * Constructs a new Person
