@@ -49,6 +49,22 @@ public class RecordParser {
 		inFile.close();
 		return noErrors;
 	}
+	
+	/**
+	 * Imports a single record  to the parser
+	 * 
+	 * @param record	A delimited string record
+	 * @return			True if successful
+	 */
+	public boolean importSingleRecord(String record) {
+		try {
+			this.people.add(new Person(record));
+			return true;
+		} catch (IllegalArgumentException iae) {
+			System.err.println(iae.getMessage());
+			return false;
+		}
+	}
 
 	/**
 	 * Getter for people

@@ -50,7 +50,7 @@ public class RecordPrinter {
 	 * 
 	 * @param sortMethod The method to sort by
 	 */
-	private void sortData(String desiredSortMethod) {
+	public void sortData(String desiredSortMethod) {
 		String sortMethod = this.parseArgument(desiredSortMethod);
 		switch (sortMethod) {
 		case "gender":

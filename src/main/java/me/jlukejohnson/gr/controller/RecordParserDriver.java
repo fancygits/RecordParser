@@ -4,6 +4,7 @@ import static spark.Spark.get;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.List;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.ParameterException;
@@ -24,7 +25,7 @@ public class RecordParserDriver {
 	/**
 	 * The entry point to the application
 	 * 
-	 * @param args
+	 * @param args	See CommandLineArgs for full options
 	 */
 	public static void main(String[] args) {
 		final CommandLineArgs commandLineArgs = new CommandLineArgs();
@@ -40,31 +41,26 @@ public class RecordParserDriver {
 			jCommander.usage();
 			return;
 		}
-		try {
-			System.out.printf("You ran the jar with arguments: %s, %s, %s, %s\n", 
-					commandLineArgs.getSortMethod(), 
-					commandLineArgs.getSingleRecord(),
-					commandLineArgs.isServer(),
-					commandLineArgs.isHelp());
-			System.out.print("Files: ");
-			for (String file: commandLineArgs.getFiles()) {
-				System.out.print(file);
+		List<String> files = commandLineArgs.getFiles();
+		if (!files.isEmpty()) {
+			importFiles(files);
+		}
+		String record = commandLineArgs.getSingleRecord();
+		if (record != null) {
+			parser.importSingleRecord(record);
+		}
+		if (commandLineArgs.isServer()) {
+			startServer();
+		} else {
+			String sortMethod = commandLineArgs.getSortMethod();
+			if (sortMethod == null) {
+				sortMethod = "gender";
 			}
-			System.out.println();
-			if (commandLineArgs.isServer()) {
-				startServer();
-			}
-		} catch (FileNotFoundException fnfe) {
-			// TODO Auto-generated catch block
-			fnfe.printStackTrace();
+			printer.printRecords(sortMethod);
 		}
 	}
 	
-	public static void startServer() throws FileNotFoundException {
-		System.out.println("Setting up some practice files");
-		parser.importRecords(new File("src/main/resources/people-with-commas.txt"));
-		parser.importRecords(new File("src/main/resources/people-with-pipes.txt"));
-		parser.importRecords(new File("src/main/resources/people-with-spaces.txt"));
+	public static void startServer() {
 		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 		System.out.println("+++++++      Starting server on port 4567      +++++++");
 		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++");
@@ -94,7 +90,7 @@ public class RecordParserDriver {
 				+   "<body>"
 				+     "<h1>Welcome to the Record Parser API</h1>"
 				+ 	  "<h2>Getting Records</h2>"
-				+ "<p>After importing records, you can get sorted records using the following "
+				+ 	  "<p>After importing records, you can get sorted records using the following "
 				+ 	  "<strong>API endpoints: </strong></p>"
 				+ 	  "<ul>"
 				+ 	    "<li>/records/gender &mdash; Records sorted by gender, then last name, ascending</li>"
@@ -113,6 +109,19 @@ public class RecordParserDriver {
 				+   "</body>"
 				+ "</html>";
 		return html;
+	}
+	
+	
+	private static void importFiles(List<String> files) {
+		for (String file: files) {
+			try {
+				parser.importRecords(new File(file));
+			} catch (FileNotFoundException fnfe) {
+				System.err.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+				System.err.println(fnfe.getMessage());
+				System.err.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+			}
+		}
 	}
 
 }
