@@ -2,7 +2,6 @@ package me.jlukejohnson.gr.controller;
 
 import static spark.Spark.get;
 import static spark.Spark.post;
-import static spark.Spark.after;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -67,6 +66,10 @@ public class RecordParserDriver {
 				}
 				printer.printRecords(sortMethod);
 			}
+		}
+		String outputFilename = commandLineArgs.getOutputFilename();
+		if (outputFilename != null) {
+			parser.exportRecords(outputFilename);
 		}
 	}
 	

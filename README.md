@@ -1,7 +1,7 @@
 # RecordParser
 A command line app that takes as input a file with a set of records in one of three formats described below, and outputs (to the screen) the set of records sorted in one of three ways.
 
-[RecordParser JAR hosted on Google Drive](https://drive.google.com/file/d/1TnIIYTOtV1RO7xXxDb15z6jfm-ildqaq/view?usp=sharing "Download RecordParser JAR")
+[RecordParser JAR hosted on Google Drive](https://drive.google.com/file/d/19h-_vA8O8s1pO1wvg7qKjjDkkVvbKpLM/view?usp=sharing "Download RecordParser JAR")
 
 ----
 
@@ -19,7 +19,7 @@ A command line app that takes as input a file with a set of records in one of th
 
 `java -jar RecordParser.jar --sort gender "records.txt" "people.csv"`
 
---output <FILENAME> *- A desired filename to output records to*
+--output <FILENAME> *- A desired filename to output records to. CAUTION: Will automatically overwrite previous file.*
 
 `java -jar RecordParser.jar input.txt records.txt --sort birthdate --output combined.txt`
 
