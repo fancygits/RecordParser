@@ -65,6 +65,17 @@ public class RecordParser {
 			return false;
 		}
 	}
+	
+	/**
+	 * Imports a Person to people
+	 * 
+	 * @param person	The Person to add
+	 * @return			True if successful
+	 */
+	public boolean importPerson(Person person) {
+		this.people.add(person);
+		return true;
+	}
 
 	/**
 	 * Getter for people

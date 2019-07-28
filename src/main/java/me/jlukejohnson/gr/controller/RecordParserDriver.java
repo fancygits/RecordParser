@@ -1,6 +1,7 @@
 package me.jlukejohnson.gr.controller;
 
 import static spark.Spark.get;
+import static spark.Spark.post;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -8,9 +9,13 @@ import java.util.List;
 
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.ParameterException;
+import com.google.gson.Gson;
 
+import me.jlukejohnson.gr.model.Person;
 import me.jlukejohnson.gr.model.RecordParser;
 import me.jlukejohnson.gr.view.RecordPrinter;
+import me.jlukejohnson.gr.view.StandardResponse;
+import me.jlukejohnson.gr.view.StatusResponse;
 
 /**
  * The main application for RecordParser
@@ -88,6 +93,15 @@ public class RecordParserDriver {
 		get("records/name", (req, res) -> {
 			res.type("application/json");
 			return printer.getJSONRecords("lastname");
+		});
+		
+		post("/records", (req, res) -> {
+			res.type("application/json");
+			if (parser.importSingleRecord(req.body())) {
+				return new Gson().toJson(new StandardResponse(StatusResponse.SUCCESS, "Person added successfully"));
+			} else {
+				return new Gson().toJson(new StandardResponse(StatusResponse.ERROR, "There was a problem with that record"));
+			}
 		});
 	}
 	

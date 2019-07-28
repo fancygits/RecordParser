@@ -110,4 +110,13 @@ class RecordParserTest {
 		assertFalse(parser.importSingleRecord("This is a row of bad data. There's too much and nothing useful!"));
 	}
 
+	/**
+	 * Test to confirm that importPerson returns true when successful
+	 */
+	@Test
+	void testImportPersonShouldReturnTrue() {
+		RecordParser parser = new RecordParser();
+		Person person = new Person("Cruise | Tom | Male | Green | 1962-07-03");
+		assertTrue(parser.importPerson(person));
+	}
 }

@@ -18,7 +18,16 @@ class StandardResponseTest {
 	private static StandardResponse response1 = new StandardResponse(StatusResponse.SUCCESS, "Success message");
 	private static StandardResponse response2 = new StandardResponse(StatusResponse.SUCCESS,
 			new Gson().toJsonTree(new Person("Holmes", "Katie", "f", "red", "1978-12-18")));
+	private static StandardResponse response3 = new StandardResponse(StatusResponse.ERROR);
 
+	/**
+	 * Test for the 1-parameter constructor
+	 */
+	@Test
+	void testStandardResponseStatusResponse() {
+		assertEquals(StatusResponse.ERROR, response3.getStatus());
+	}
+	
 	/**
 	 * Test method for
 	 * {@link me.jlukejohnson.gr.view.StandardResponse#StandardResponse(me.jlukejohnson.gr.view.StatusResponse, java.lang.String)}.
