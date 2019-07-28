@@ -90,5 +90,24 @@ class RecordParserTest {
 		notEnoughData.deleteOnExit();
 		assertFalse(parser.importRecords(notEnoughData));
 	}
+	
+	/**
+	 * Test to confirm that importSingleRow adds a person and returns true
+	 */
+	@Test
+	void testImportSingleRecordShouldCreateAPersonAndReturnTrue() {
+		RecordParser parser = new RecordParser();
+		assertTrue(parser.importSingleRecord("Cruise | Tom | Male | Green | 1962-07-03"));
+		assertEquals(1, parser.getPeople().size());
+	}
+	
+	/**
+	 * Test to confirm that importSingleRecord returns false when unsuccessful
+	 */
+	@Test
+	void testImportSingleRowShouldReturnFalseIfUnsuccessful() {
+		RecordParser parser = new RecordParser();
+		assertFalse(parser.importSingleRecord("This is a row of bad data. There's too much and nothing useful!"));
+	}
 
 }

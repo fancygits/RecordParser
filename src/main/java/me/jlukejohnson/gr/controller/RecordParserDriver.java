@@ -52,14 +52,22 @@ public class RecordParserDriver {
 		if (commandLineArgs.isServer()) {
 			startServer();
 		} else {
-			String sortMethod = commandLineArgs.getSortMethod();
-			if (sortMethod == null) {
-				sortMethod = "gender";
+			if (parser.getPeople().isEmpty()) {
+				jCommander.usage();
+				return;
+			} else {
+				String sortMethod = commandLineArgs.getSortMethod();
+				if (sortMethod == null) {
+					sortMethod = "gender";
+				}
+				printer.printRecords(sortMethod);
 			}
-			printer.printRecords(sortMethod);
 		}
 	}
 	
+	/**
+	 * Starts the SparkJava server with REST api endpoints
+	 */
 	public static void startServer() {
 		System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 		System.out.println("+++++++      Starting server on port 4567      +++++++");
@@ -83,7 +91,11 @@ public class RecordParserDriver {
 		});
 	}
 	
-	
+	/**
+	 * Renders a Help page if root is called on server
+	 * 
+	 * @return	A String of HTML help page
+	 */
 	private static String renderHelpPage() {
 		String html = ""
 				+ "<html>"
@@ -111,14 +123,18 @@ public class RecordParserDriver {
 		return html;
 	}
 	
-	
+	/**
+	 * Imports each file given to the RecordParser
+	 * 
+	 * @param files	A list of files
+	 */
 	private static void importFiles(List<String> files) {
 		for (String file: files) {
 			try {
 				parser.importRecords(new File(file));
 			} catch (FileNotFoundException fnfe) {
 				System.err.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-				System.err.println(fnfe.getMessage());
+				System.err.println("~~ " + fnfe.getMessage());
 				System.err.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
 			}
 		}
